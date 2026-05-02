@@ -1,0 +1,31 @@
+# We named this file test because eventualy we will create a workflow for executing tests cases when we push new changes.
+name: Execute Test Case
+on: push
+jobs:
+    run-react-tests:
+        runs-on: ubuntu-latest
+        steps:
+            # These Jobs / Steps run on servers, on the machines owned by github or on the machines owned by you if you bring your own servers. 
+            # So the first step is to download the code, and to achive this we will explore another key building block - action
+            - name: Get code from repo
+            
+            # If you wanna use an action, instead of running a command, we dont use the "run" keyword which is for running a commad instead we use "uses".
+            # Usage: uses: <identyifier_of_the_action>. You can find the identifier name in that particular action page. https://github.com/marketplace/actions/checkout#usage (- uses: actions/checkout@v6)
+            # We can specify the actions version which can be useful if we want to stick to any particular version, as the code for the action could be update and can break our workflow
+              uses: actions/checkout@v6
+
+            # For the second step we need to install the NodeJS into our runner machine and the dependencies of our project. Since we are using ubuntu-latest, NodeJs is already installed.
+            # We can see what softwares are already installed in our runner machine from the GitHub official documentation
+            # https://docs.github.com/en/actions/reference/runners/github-hosted-runners https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md
+            - name: Install NodeJS Version 18
+              uses: actions/setup-node@v6
+              with:
+                node-version: 18
+
+            # Install the Dependencies
+            - name: Install Dependencies
+              run: npm ci
+
+            # Execute the test cases
+            - name: Run React Test Cases
+              run: npm test
