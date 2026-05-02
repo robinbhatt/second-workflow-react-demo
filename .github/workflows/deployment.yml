@@ -1,5 +1,4 @@
-# We named this file test because eventualy we will create a workflow for executing tests cases when we push new changes.
-name: Execute Test Case
+name: Test & Deploy
 on: push
 jobs:
   run-react-tests:
