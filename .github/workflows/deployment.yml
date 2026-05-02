@@ -1,0 +1,41 @@
+# We named this file test because eventualy we will create a workflow for executing tests cases when we push new changes.
+name: Execute Test Case
+on: push
+jobs:
+  run-react-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code from repo
+        uses: actions/checkout@v6
+
+      - name: Install NodeJS Version 18
+        uses: actions/setup-node@v6
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run React Test Cases
+        run: npm test
+
+  deploy-react-website:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code from repo
+          uses: actions/checkout@v6
+
+        - name: Install NodeJS Version 18
+          uses: actions/setup-node@v6
+          with:
+            node-version: 18
+
+        - name: Install Dependencies
+          run: npm ci
+
+        - name: Build the project
+          run: npm run build
+          
+        - name: Deploy
+          run: echo "Deploying..."
+        
