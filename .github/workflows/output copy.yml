@@ -1,9 +1,0 @@
-name: Output information
-on: workflow_dispatch
-jobs:
-  print-context-info:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output GitHub Context
-      # "github" below is one of the ofically available keys in the context of Job 
-        run: echo "${{ toJSON(github) }}"
